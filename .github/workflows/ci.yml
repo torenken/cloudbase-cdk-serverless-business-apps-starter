@@ -1,0 +1,27 @@
+name: Cloudbase CDK Business Apps CI
+on: [push]
+jobs:
+  generation:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version:
+          - "3.12"
+          - "3.13"
+    steps:
+      # git checkout
+      - name: Checkout codebase
+        uses: actions/checkout@v4
+
+      # python setup
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: 'pip'
+
+      # python install
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
