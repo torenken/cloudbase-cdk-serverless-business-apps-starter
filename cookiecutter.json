@@ -1,0 +1,10 @@
+{
+  "project_slug": "customer-support-pin",
+  "project_team": "customer-support-team",
+
+  "app_name": "pin-service",
+  "app_prefix": "{{ cookiecutter.app_name.split('-')|map('capitalize')|join }}",
+
+  "cdk_version":"2.186.0",
+  "go_module_name": "github.com/torenken/{{cookiecutter.app_name}}"
+}
