@@ -83,6 +83,7 @@ cookiecutter --config-file ./custom-config.yaml git+ssh://git@github.com/torenke
 Use the following command from the **new project `/deploy/cdk` directory** to generate the new CDK Directory structure.
 
 ```shell
+cd <project-directory>/deploy/cdk
 pnpx projen new awscdk-app-ts --no-post --no-git
 ```
 
@@ -94,6 +95,8 @@ pnpm build
 ```
 
 #### Initial GitHub Push
+
+Use the following command from the **new project `root` directory** to push your project to GitHub.
 
 ```shell
 git init
