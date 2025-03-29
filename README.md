@@ -37,6 +37,9 @@ corepack enable pnpm
 
 #### Generate Your Serverless Business Apps Project 🎉
 
+The following command downloads the cookiecutter template and creates a new CDK Bootstrap project from it. The input
+options are described below under [Project Generation Options](#project-generation-options).
+
 ```shell
 cookiecutter git+ssh://git@github.com/torenken/cloudbase-cdk-serverless-business-apps-starter.git
 ```
@@ -44,7 +47,14 @@ cookiecutter git+ssh://git@github.com/torenken/cloudbase-cdk-serverless-business
 *Console Output*
 
 ```console
-[1/6] project_slug (customer-support-pin):  
+[1/8] project_slug (customer-support-pin): 
+[2/8] project_team (customer-support-team): 
+[3/8] app_name (pin-service): 
+[4/8] app_prefix (PinService): 
+[5/8] service_account (01234560123456): 
+[6/8] productive_account (01234560123456): 
+[7/8] cdk_version (2.186.0): 
+[8/8] go_module_name (github.com/torenken/pin-service): 
 ```
 
 ##### Using Custom Config File
@@ -57,6 +67,11 @@ In case you do not want to make your values in the Linux shell. Is it possible t
 ```yaml
 default_context:
   project_slug: "customer-support-pin"
+  project_team: "customer-support-team"
+  app_name: "pin-service"
+  service_account: "01234560123456"
+  productive_account: "01234560123456"
+  cdk_version: "2.186.0" 
 ```
 
 ```shell
@@ -94,3 +109,18 @@ git remote add origin git@github.com:torenken/<project_slug>.git
 ```shell
 git push -u origin main
 ```
+
+### Project Generation Options
+
+Every project is unique, and we provide a variety of options to ensure that your bootstrap project aligns with your specific needs. Here are the options you can customize during the generation process:
+
+| Option               | Description                                                                                                                   | Example                             |
+|----------------------|-------------------------------------------------------------------------------------------------------------------------------|-------------------------------------|
+| `project_slug`       | Your project's slug without spaces. Used to name your project directory and repository. Use the bind as separate.             | **customer-support-pin**            |
+| `project_team`       | The project team you want to identify yourself in the project. The name goes into places like LICENSE, package.json and such. | **customer-support-team**           |
+| `app_name`           | Your application name without spaces. Used to name your application project configuration. Use the bind as separate.          | **pin-service**                     |
+| `app_prefix`         | Prefix generated from the application name for the CDK classes.                                                               | **PinService**                      |
+| `service_account`    | Number of the Service/Development AWS Account.                                                                                | **01234560123456**                  |
+| `productive_account` | Number of the Productive AWS Account.                                                                                         | **01234560123456**                  |
+| `cdk_version`        | Version number of the latest CDK version. The latest version can be determined via https://github.com/aws/aws-cdk/releases.   | **2.186.0**                         |
+| `go_module_name`     | Path of an of Go module identified. see https://go.dev/ref/mod                                                                | **github.com/torenken/pin-service** |
