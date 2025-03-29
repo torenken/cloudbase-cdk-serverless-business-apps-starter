@@ -5,6 +5,9 @@
   "app_name": "pin-service",
   "app_prefix": "{{ cookiecutter.app_name.split('-')|map('capitalize')|join }}",
 
+  "service_account": "01234560123456",
+  "productive_account": "01234560123456",
+
   "cdk_version":"2.186.0",
   "go_module_name": "github.com/torenken/{{cookiecutter.app_name}}"
 }

@@ -2,6 +2,24 @@ import { awscdk, javascript } from 'projen';
 
 const appName = '{{cookiecutter.app_name}}';
 
+const pipelineCfg = {
+  account: '{{cookiecutter.service_account}}',
+  gitHubActionRoleArn: 'arn:aws:iam::{{cookiecutter.service_account}}:role/GitHubActionRole',
+};
+
+const devCfg = {
+  account: '{{cookiecutter.service_account}}',
+};
+
+const prodCfg = {
+  account: '{{cookiecutter.productive_account}}',
+};
+
+const accountCfg = {
+  dev: devCfg,
+  prod: prodCfg,
+};
+
 const project = new awscdk.AwsCdkTypeScriptApp({
   name: appName,
   authorName: '{{cookiecutter.project_team}}',
@@ -24,6 +42,13 @@ const project = new awscdk.AwsCdkTypeScriptApp({
   // description: undefined,  /* The description is just a string that helps people understand the purpose of the package. */
   // devDeps: [],             /* Build dependencies for this module. */
   // packageName: undefined,  /* The "name" in package.json. */
+
+  context: {
+    'stageConfig': accountCfg,
+    'pipelineCfg': pipelineCfg,
+
+    '@aws-cdk/core:newStyleStackSynthesis': true,
+  },
 
   appEntrypoint: `${appName}-app.ts`,
 

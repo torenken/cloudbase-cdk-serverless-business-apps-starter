@@ -2,11 +2,17 @@ import { Stack, StackProps } from 'aws-cdk-lib';
 import { ShellStep } from 'aws-cdk-lib/pipelines';
 import { AwsCredentials, GitHubWorkflow } from 'cdk-pipelines-github';
 import { Construct } from 'constructs';
+import { PipelineCfg, Stage, StageCfg, StageName } from '../{{cookiecutter.app_name}}-cfg';
 import { {{cookiecutter.app_prefix}}Stage } from '../{{cookiecutter.app_name}}-stage';
+
+export interface {{cookiecutter.app_prefix}}PipelineProps extends StackProps {
+  readonly pipelineCfg: PipelineCfg;
+  readonly stageCfg: { [key in StageName]: StageCfg };
+}
 
 export class {{cookiecutter.app_prefix}}Pipeline extends Stack {
 
-  constructor(scope: Construct, id: string, props: StackProps = {}) {
+  constructor(scope: Construct, id: string, props: {{cookiecutter.app_prefix}}PipelineProps) {
     super(scope, id, props);
 
     const pipeline = new GitHubWorkflow(this, 'Pipeline', {
@@ -33,14 +39,15 @@ export class {{cookiecutter.app_prefix}}Pipeline extends Stack {
         ],
       }),
       awsCreds: AwsCredentials.fromOpenIdConnect({
-        gitHubActionRoleArn: 'arn:aws:iam::xxxxxxxxxxxx:role/GitHubActionRole', //arn from sales-bootstrap
+        gitHubActionRoleArn: props.pipelineCfg.gitHubActionRoleArn,
       }),
     });
 
     // --- development
+    const devStageCfg = props.stageCfg[Stage.Dev];
     const devStage = new {{cookiecutter.app_prefix}}Stage(this, 'Dev', {
       env: {
-        account: 'xxxxxxxxxxxx', //dev account
+        account: devStageCfg.account,
         region: 'eu-central-1',
       },
     });
