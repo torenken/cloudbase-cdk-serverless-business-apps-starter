@@ -80,7 +80,7 @@ cookiecutter --config-file ./custom-config.yaml git+ssh://git@github.com/torenke
 
 ##### Generate CDK Bootstrap Structure
 
-Use the following command from the new project **/deploy/cdk** directory to generate the new CDK Directory structure.
+Use the following command from the **new project `/deploy/cdk` directory** to generate the new CDK Directory structure.
 
 ```shell
 pnpx projen new awscdk-app-ts --no-post --no-git
